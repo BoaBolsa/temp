@@ -17,7 +17,7 @@ app.get('/Cotacao.aspx', function(req, res) {
 				
 				var funcao = req.query.funcao || "preco";
 				var ret = '';
-				switch(req.query.funcao)
+				switch(funcao)
 				{
 					case "variacao":
 					case "oscilacao":
