@@ -1,0 +1,29 @@
+{
+  "name": "temp",
+  "version": "1.0.0",
+  "description": "Just a temporary node service to replace an old aspx",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.13.3",
+    "request": "^2.65.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BoaBolsa/temp.git"
+  },
+  "keywords": [
+    "BM&FBovespa",
+    "API"
+  ],
+  "author": "Alberto Chvaicer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BoaBolsa/temp/issues"
+  },
+  "homepage": "https://github.com/BoaBolsa/temp#readme"
+}
