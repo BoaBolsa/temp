@@ -3,7 +3,7 @@ var request = require('request');
 
 var app = express();
 
-app.get('/Cotacao.aspx', function(req, res) {
+function getpost(req, res) {
 
         console.log(req.query);
 	
@@ -62,6 +62,10 @@ app.get('/Cotacao.aspx', function(req, res) {
                                 res.end(ret);
                         });
 
-});
+}
+
+app
+	.get('/Cotacao.aspx', getpost)
+	.post('/Cotacao.aspx', getpost);
 
 app.listen(process.env.PORT || 3000);
