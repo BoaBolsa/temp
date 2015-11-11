@@ -3,17 +3,27 @@ var request = require('request');
 
 var app = express();
 
+app.use(function(req, res, next) {
+  for (var key in req.query)
+  { 
+    req.query[key.toLowerCase()] = req.query[key];
+  }
+  next();
+});
+
+
 function getpost(req, res) {
 
         console.log(req.query);
 	
-	var funcao = req.query.funcao || "preco";
+	var funcao = req.query.funcao || req.query.Funcao || "preco";
+	var codigoAcao = req.query.codigoAcao || req.query.CodigoAcao || req.query.codigoacao;
 
 	var regex = new RegExp(/\d{4}-\d{2}-\d{2}/);
 	if(regex.test(funcao)) {
 		var date = funcao.split('-');
 
-		request.get('http://ichart.finance.yahoo.com/table.csv?s=' + req.query.codigoAcao + '.SA&a=' + 
+		request.get('http://ichart.finance.yahoo.com/table.csv?s=' + codigoAcao + '.SA&a=' + 
 			(parseInt(date[1]) - 1) + '&b=' +date[2] + '&c=' + date[0] + '&d=' + (parseInt(date[1]) - 1) + 
 			'&e=' + date[2] + '&f=' +date[0] + '&g=d',
 		function(error, response, body) {
@@ -24,7 +34,7 @@ function getpost(req, res) {
 	}
 
         request.post('http://bmf.chromestudio.com.br/server/api/acoes.php',
-                        { form: { e: 'pontos', codigo: req.query.codigoAcao } },
+                        { form: { e: 'pontos', codigo: codigoAcao } },
                         function(error, response, body) {
 				
 				var data = JSON.parse(body);
