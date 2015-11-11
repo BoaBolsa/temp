@@ -41,7 +41,6 @@ function getpost(req, res) {
 				if (data.err != 0) 
 					console.log(data);
 				
-				var funcao = req.query.funcao || "preco";
 				var ret = '';
 				switch(funcao)
 				{
