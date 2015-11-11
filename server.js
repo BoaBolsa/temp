@@ -6,6 +6,22 @@ var app = express();
 app.get('/Cotacao.aspx', function(req, res) {
 
         console.log(req.query);
+	
+	var funcao = req.query.funcao || "preco";
+
+	var regex = new RegExp(/\d{4}-\d{2}-\d{2}/);
+	if(regex.test(funcao)) {
+		var date = funcao.split('-');
+
+		request.get('http://ichart.finance.yahoo.com/table.csv?s=' + req.query.codigoAcao + '.SA&a=' + 
+			(parseInt(date[1]) - 1) + '&b=' +date[2] + '&c=' + date[0] + '&d=' + (parseInt(date[1]) - 1) + 
+			'&e=' + date[2] + '&f=' +date[0] + '&g=d',
+		function(error, response, body) {
+			var r = body.split('\n')[1].split(',');
+			console.log(body);
+			res.end(r[4]);
+		});
+	}
 
         request.post('http://bmf.chromestudio.com.br/server/api/acoes.php',
                         { form: { e: 'pontos', codigo: req.query.codigoAcao } },
