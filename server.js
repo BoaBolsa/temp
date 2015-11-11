@@ -53,7 +53,9 @@ app.get('/Cotacao.aspx', function(req, res) {
 					case "nome":
 						ret = data.desc.nome;
 						break;
-
+					case "strike":
+						ret = data.desc.nome.split(" ").pop();
+						break;
 					default:
 						ret = data.desc.ultima;
 				}
