@@ -5,7 +5,8 @@
   "main": "server.js",
   "dependencies": {
     "express": "^4.13.3",
-    "request": "^2.65.0"
+    "request": "^2.65.0",
+    "universal-analytics": "^0.3.9"
   },
   "devDependencies": {},
   "scripts": {

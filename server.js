@@ -1,5 +1,8 @@
 var express = require('express');
 var request = require('request');
+var ua = require('universal-analytics');
+
+var visitor = ua('UA-21801676-1');
 
 var app = express();
 
