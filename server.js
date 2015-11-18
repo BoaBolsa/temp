@@ -64,6 +64,9 @@ function getpost(req, res) {
                 case "strike":
                     ret = data.desc.nome.split(" ").pop();
                     break;
+                case "json":
+                    ret = JSON.stringify(data.desc);
+                    break;
                 default:
                     ret = data.desc.ultima;
             }
