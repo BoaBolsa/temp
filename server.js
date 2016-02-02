@@ -1,6 +1,6 @@
 var express = require('express');
 var request = require('request');
-var xml = require("node-xml-lite")
+var xml = require("node-xml-lite");
 var ua = require('universal-analytics');
 require('newrelic');
 
@@ -42,9 +42,7 @@ function getpost(req, res) {
             function(error, response, body) {
 
             var data = xml.parseString(body);
-            if (data.err != 0) 
-                console.log(data);
-
+            
             if (data.childs.length < 3) return "";
 
             var ret = '';
