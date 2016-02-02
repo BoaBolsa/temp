@@ -41,7 +41,7 @@ function getpost(req, res) {
             { },
             function(error, response, body) {
 
-            return res.end(body);
+            //res.end(body);
             var data = xml.parseString(body);
             
             if (data.childs.length < 3) res.end("");
