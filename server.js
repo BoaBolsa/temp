@@ -38,7 +38,6 @@ function getpost(req, res) {
     }
 
     request.get('http://www.bmfbovespa.com.br/Pregao-Online/ExecutaAcaoAjax.asp?CodigoPapel=' + codigoAcao,
-            { },
             function(error, response, body) {
 
             //res.end(body);
