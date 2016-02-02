@@ -1,5 +1,6 @@
 var express = require('express');
 var request = require('request');
+var xml = require("node-xml-lite")
 var ua = require('universal-analytics');
 
 var visitor = ua('UA-21801676-1');
@@ -35,43 +36,43 @@ function getpost(req, res) {
             });
     }
 
-    request.post('http://bmf.chromestudio.com.br/server/api/acoes.php',
-            { form: { e: 'pontos', codigo: codigoAcao } },
+    request.get('http://www.bmfbovespa.com.br/Pregao-Online/ExecutaAcaoAjax.asp?CodigoPapel=' + codigoAcao,
+            { },
             function(error, response, body) {
 
-            var data = JSON.parse(body);
+            var data = xml.parseString(body);
             if (data.err != 0) 
                 console.log(data);
 
+            if (data.childs.length < 3) return "";
+
             var ret = '';
+            var a =  data.childs[1].attrib;
             switch(funcao)
             {
                 case "variacao":
                 case "oscilacao":
-                    ret = data.desc.oscilacao;
+                    ret = a.Oscilacao;
                     break;
                 case "maxima":
                 case "maximo":
-                    ret = data.desc.maxima;
+                    ret = a.Maximo;
                     break;
                 case "minima":
                 case "minimo":
-                    ret = data.desc.minima;
+                    ret = a.Minimo;
                     break;
                 case "abertura":
-                    ret = data.desc.abertura;
+                    ret = a.Abertura;
                     break;
                 case "nome":
-                    ret = data.desc.nome;
+                    ret = a.Nome;
                     break;
                 case "strike":
-                    ret = data.desc.nome.split(" ").pop();
-                    break;
-                case "json":
-                    ret = JSON.stringify(data.desc);
+                    ret = a.Nome.split(" ").pop();
                     break;
                 default:
-                    ret = data.desc.ultima;
+                    ret = a.Ultimo;
             }
             res.end(ret);
         });
