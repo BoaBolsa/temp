@@ -41,10 +41,10 @@ function getpost(req, res) {
             { },
             function(error, response, body) {
 
-            return body;
+            return res.end(body);
             var data = xml.parseString(body);
             
-            if (data.childs.length < 3) return "";
+            if (data.childs.length < 3) res.end("");
 
             var ret = '';
             var a =  data.childs[1].attrib;
