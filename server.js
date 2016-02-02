@@ -2,6 +2,7 @@ var express = require('express');
 var request = require('request');
 var xml = require("node-xml-lite")
 var ua = require('universal-analytics');
+require('newrelic');
 
 var visitor = ua('UA-21801676-1');
 
