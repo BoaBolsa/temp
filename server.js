@@ -35,43 +35,55 @@ function getpost(req, res) {
             });
     }
 
-    request.post('http://bmf.chromestudio.com.br/server/api/acoes.php',
-            { form: { e: 'pontos', codigo: codigoAcao } },
+    request.get('https://www.google.com/finance/getprices?x=BVMF&q=' + codigoAcao,
+            {  },
             function(error, response, body) {
 
-            var data = JSON.parse(body);
-            if (data.err != 0) 
-                console.log(data);
+            console.log(body);
+            var lines = body.split('\n');
+            console.log(lines);
+            var last = lines[lines.length - 2];
+            console.log(last);
 
+            if (last == "DATA=")
+            {
+                res.end("");
+                return;
+            }    
+
+            var columns = last.split(',');
             var ret = '';
             switch(funcao)
             {
                 case "variacao":
                 case "oscilacao":
-                    ret = data.desc.oscilacao;
+                    ret = "";
                     break;
                 case "maxima":
                 case "maximo":
-                    ret = data.desc.maxima;
+                    ret = columns[2];
                     break;
                 case "minima":
                 case "minimo":
-                    ret = data.desc.minima;
+                    ret = columns[3];
                     break;
                 case "abertura":
-                    ret = data.desc.abertura;
+                    ret = columns[4];
                     break;
                 case "nome":
-                    ret = data.desc.nome;
+                    ret = "";
                     break;
                 case "strike":
-                    ret = data.desc.nome.split(" ").pop();
+                    ret = "";
                     break;
                 case "json":
-                    ret = JSON.stringify(data.desc);
+                    ret = "";
+                    break;
+                case "volume":
+                    ret = columns[5];
                     break;
                 default:
-                    ret = data.desc.ultima;
+                    ret = columns[1];
             }
             res.end(ret);
         });
