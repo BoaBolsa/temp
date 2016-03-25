@@ -1,6 +1,5 @@
 var express = require('express');
 var request = require('request');
-var xml = require('node-xml-lite');
 var ua = require('universal-analytics');
 
 var visitor = ua('UA-21801676-1');
@@ -54,7 +53,6 @@ function getpost(req, res) {
 
             var columns = last.split(',');
             var ret = '';
-            var a =  data.childs[1].attrib;
             switch(funcao)
             {
                 case "variacao":
