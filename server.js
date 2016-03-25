@@ -1,5 +1,6 @@
 var express = require('express');
 var request = require('request');
+var xml = require('node-xml-lite');
 var ua = require('universal-analytics');
 
 var visitor = ua('UA-21801676-1');
@@ -23,16 +24,16 @@ function getpost(req, res) {
 
     var regex = new RegExp(/\d{4}-\d{2}-\d{2}/);
     if(regex.test(funcao)) {
-    var date = funcao.split('-');
+        var date = funcao.split('-');
 
-    request.get('http://ichart.finance.yahoo.com/table.csv?s=' + codigoAcao + '.SA&a=' + 
-            (parseInt(date[1]) - 1) + '&b=' +date[2] + '&c=' + date[0] + '&d=' + (parseInt(date[1]) - 1) + 
-            '&e=' + date[2] + '&f=' +date[0] + '&g=d',
-            function(error, response, body) {
-                var r = body.split('\n')[1].split(',');
-                console.log(body);
-                res.end(r[4]);
-            });
+        request.get('http://ichart.finance.yahoo.com/table.csv?s=' + codigoAcao + '.SA&a=' + 
+                (parseInt(date[1]) - 1) + '&b=' +date[2] + '&c=' + date[0] + '&d=' + (parseInt(date[1]) - 1) + 
+                '&e=' + date[2] + '&f=' +date[0] + '&g=d',
+                function(error, response, body) {
+                    var r = body.split('\n')[1].split(',');
+                    console.log(body);
+                    res.end(r[4]);
+                });
     }
 
     request.get('https://www.google.com/finance/getprices?x=BVMF&q=' + codigoAcao,
@@ -53,6 +54,7 @@ function getpost(req, res) {
 
             var columns = last.split(',');
             var ret = '';
+            var a =  data.childs[1].attrib;
             switch(funcao)
             {
                 case "variacao":
