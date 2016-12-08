@@ -27,7 +27,7 @@ function getpost(req, res) {
 
         request.get('http://chart.finance.yahoo.com/table.csv?s=' + codigoAcao + '.SA&a=' + 
                 (parseInt(date[1]) - 1) + '&b=' +date[2] + '&c=' + date[0] + '&d=' + (parseInt(date[1]) - 1) + 
-                '&e=' + date[2] + '&f=' +date[0] + '&g=d',
+                '&e=' + date[2] + '&f=' +date[0] + '&g=d&ignore=.csv',
                 function(error, response, body) {
                     var r = body.split('\n')[1].split(',');
                     console.log(body);
